@@ -1,0 +1,665 @@
+
+---psg.js
+
+// see https://github.com/skulpt/skulpt/blob/master/src/lib/webbrowser.js
+// see https://github.com/skulpt/skulpt/blob/563e61529f1a60685d61e536c728a384dd0d946c/src/print.js#L7
+
+// $var means it's a python-format variable
+
+class tk  {
+
+    static e = []; // the html element for each psg element id
+    static callback = ({});
+    static parfromstrid = ({});
+
+    static $kdict = ($k, key) => $k.entries[key].rhs.$d;
+    static dictget = ($d, key) => Sk.ffi.remapToJs(Sk.abstr.objectGetItem($d, new Sk.builtin.str(key), true));
+    static dictset = ($d, key, value) => Sk.abstr.objectSetItem($d, new Sk.builtin.str(key), Sk.ffi.remapToPy(value), true);
+    static $call = ($f, a = []) => Sk.misceval.applyOrSuspend($f,undefined,undefined,undefined,a);
+
+
+    static setpadding(id, k) {
+        const padx = k.padx;
+        const pady = k.pady;
+        if (padx && pady) this.e[id].css('margin', `${pady}px ${padx}px ${pady}px ${padx}px`);
+    }
+
+    static nop() {return true;}
+    static Tk$() {return true;}
+    static Toplevel$(id, a, k) {
+        $('.splash').hide();
+        $(`<div class="titlebar">
+                            <!--<img width="16" height="16" src="pasted_zD1X8B19FV.jpg" />-->
+                            <img width="16" height="16" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACx0lEQVQ4EW2R3UvTYRiGPe7fKSij5WpmWWo6TcLoS5faUjfLTTGz74OMgj7VUSmKlJkUadPSOugDLDwoidqcaCu35TZTmdvvffdTr2jLRO09eeDmvi/e534SEla8QYdnom/AyQo5IRy1r9JWehKqb9pJKmxAU3AL89WefwHhzER8TUQ4tKih/n/6MsChi49JKq5HY7hD0tFGNIYGjHVPUWfshL6uQ3xJRHFtRDjWIr1nlkOst7vZUngL7bHG2A+0xXfZfKSepCP1lF3pQpnpQnFtQDg2MfslkVmXBvVXexzS+9FFte01put2tEYbOuM9dMZmthbb0BTbYlpL/xDCuQMxvA3h2o5wahHDWXFAg/0T7x1eRjxTpJQ1E5wOsdPcgc7URnLJPXSmZi4/eENoTI8ykoz4lkp4LBVlJI252VdxyN7aDvRV9xka9WG41IWuvAmduQmdqZU0azsL6ixiLJOIOwPxbSeh0V1IT8FSD8M/guv/NFp0pYc0axupllaSy1tItrYAKtJjiAGEOx3p3oPwHFgKL56i4HI36ZYOUk60k1r5gPTKhyyoIDxFSHcO0puNHN+L4jGsDpfeeElGVSfpVZ2kVT6KzXkVQt6Sv6F8FG8ewl3EwsIMyoQFdbopDhoc9U1knX5C5smn7Kp9yO7qbqyNr4kGLyHH84n4DqN8P0gkWMK84kQJ1DCnDKBOd8YBn8cCZ7Nrn6A/ZSfj3DOyato52faOsL8C6c9H8RmR3kLk5AlE8BQiUM68OoSYebS0SmXrAPqL3WTXPkN/xk7e+T6iYTciaEL4SpD+UqS/DDFpjk1lshQZvrYE+FPk/qvPyT3fT865XnIv9GCufwt41yj+ihhITh0n8qscGSgj8rNieXjxEhbbB3Iv9JNT94J9dX0xE9Hh9XLCEocEzESDNf8PL0JefPTS8c61yjQnexHK21X6b8yNLxENffyeAAAAAElFTkSuQmCC" />
+                            <span id="title">PySimpleGUI App</span>
+                        </div>
+                        <table></table>`)
+        .prependTo('body');
+    }
+    static Toplevel$mainloop(id, a, k) {
+    }
+    static Toplevel$update_idletasks(id, a, k) {
+    }
+    static Toplevel$configure(id, a, k) {
+        if (k.background) $('body').css('background', k.background);
+    }
+    static Toplevel$title(id, [title], k) {
+        $('title').text(title);
+        $('#title').text(title);
+    }
+    static S$current($a, $k){
+        console.warn($k);
+    }
+    static Button$(id, a, {text, justify}, $a, $k) {
+        this.e[id] = $(`<button>${text}</button>`)
+        .appendTo(this.cell)
+        .click(event => {
+            event.preventDefault();
+            this.$call($k.entries.command.rhs);
+        })
+        ;
+    }
+    static Button$config(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+        if (k.foreground) this.e[id].css('color', k.foreground);
+        // if (kwargs.activebackground) null
+    }
+    static Button$pack(id, a, k) {
+        this.setpadding(id, k);
+    }
+    static Button$bind(id, a, k) {
+    }
+    static Checkbutton$(id, a, {text}, $a, $k) {
+        console.warn(id, $k);
+        const $d = this.$kdict($k, 'variable');
+        const value = this.dictget($d, 'v');
+        const checked = this.dictget($d, 'v')? 'checked': '';
+        this.e[id] = $(`<label for="cb${id}"><input id="cb${id}" type="checkbox" ${checked}><span>${text}</span></span>`)
+        .appendTo(this.cell)
+        .click(event => {
+            const value = $(event.target).is(':checked');
+            console.warn(id, value);
+            this.dictset($d, 'v', value);
+            if ($k.entries.command) this.$call($k.entries.command.rhs);
+        })
+        // .find('input').prop('checked', value);
+        ;
+    }
+    static Checkbutton$configure(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+        if (k.activebackground) this.e[id].css('background', k.activebackground);
+        // if (k.selectcolor) this.e[id].css('color', k.selectcolor);
+        if (k.fg) this.e[id].css('color', k.fg);
+    }
+    static Checkbutton$pack(id, a, k) {
+        this.setpadding(id, k);
+    }
+    static Radiobutton$(id, a, {text, value}, $a, $k){
+        const $d = this.$kdict($k, 'variable');
+        const defval = this.dictget($d, 'v');
+        console.warn(id, $k);
+        const strval = value.toString();
+        const group = strval.substr(0, 3);
+        const checked = (defval==value)? 'checked': '';
+        var rad = $(`<label for="rb${id}"><input id="rb${id}" type="radio" name = ${group} ${checked}><span>${text}</span></span>`);
+        this.e[id] = rad.appendTo(this.cell)
+                    .click(event => {
+                            const newval = $(event.target).is(':checked');
+                            const oldval = this.dictget($d, 'v')
+                            if(oldval != value){
+                                this.dictset($d, 'v', value);
+                                this.$call($k.entries.command.rhs);
+                            }
+                            console.warn(id, $k);
+                        });
+    }
+    static Radiobutton$configure(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+        if (k.activebackground) this.e[id].css('background', k.activebackground);
+        //if (k.selectcolor) this.e[id].css('color', k.selectcolor);
+        if (k.fg) this.e[id].css('color', k.fg);
+    }
+    static Radiobutton$pack(id, a, k) {
+        this.setpadding(id, k);
+    }
+    static Scrollbar$(id, $a, $k){
+    }
+    static Scrollbar$set(id, a, k){
+    }
+    static Scrollbar$pack(id, a, k){
+    }
+    static Listbox$(id, a, {values}, $a, $k){
+        console.warn(id, values);
+        var sel = $(`<select size="5">
+                    <option value="1">Item #1</option>
+                    <option value="2">Item #2</option>
+                    <option value="3">Item #3</option>
+                    <option value="4">Item #4</option>
+                    <option value="5">Item #5</option>
+                    <option value="6">Item #6</option>
+                    <option value="7">Item #7</option>
+                  </select>`);
+        this.e[id] = sel.appendTo(this.cell);
+    }
+    static Listbox$config(id, a, k){
+    }
+    static Listbox$insert(id, a, k){
+    }
+    static Listbox$configure(id, a, k){
+    }
+    static Listbox$bind(id, a, k){
+    }
+    static Listbox$pack(id, a, k){
+    }
+    static Combo$(id, $a, $k) {
+        console.warn(id, $k);
+        var sel = $(`<select></select>`);
+        var o = new Option("test", "value");
+        $(o).innerHTML = "test";
+        sel.append(o);
+        this.e[id] = sel.appendTo(this.cell);
+    }
+    static Combo$config(id, a, k){
+    }
+    static Combo$configure(id, a, k){
+        //console.warn(id, k['height']);
+        //this.e[id].css('height', k[height]);
+        //this.e[id].css('width', k[width]);
+    }
+    static Combo$pack(id, a, k) {
+        this.setpadding(id, k);
+    }
+    static Entry$(id, a, k, $a, $k) {
+        const $d = this.$kdict($k, 'textvariable');
+        const value = this.dictget($d, 'v');
+        this.e[id] = $(`<input value="${value}" />`)
+        .appendTo(this.cell)
+        .keydown(event => {
+            if (event.key === 'Enter') {
+                this.$call(this.callback[id], [null]);
+            }
+        })
+        .keyup(event => {
+            event.preventDefault();
+            const value = $(event.target).val();
+            this.dictset($d, 'v', value);
+        })
+        ;
+        if (k.width) this.e[id].css('width', 7 * k.width);
+    }
+    static Entry$configure(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+        if (k.fg) this.e[id].css('color', k.fg);
+        // if (k.highlightthickness) tthis.$call(his.e[id]).css('...', k//.highlightthickn
+    }
+    static Entry$pack(id, a, k) {
+        this.e[id].css('visibility', 'visible');
+        this.setpadding(id, k);
+    }
+    static Entry$bind(id, a, k, $a, $k) {
+        this.callback[id] = $a.v[1];
+    }
+    static Entry$focus_set(id, a, k) {
+        this.e[id].select();
+    }
+    static Entry$pack_forget(id, a, k){
+        this.e[id].css('visibility', 'hidden');
+        //this.e[id].children[0].style.visibility = "hidden";
+    }
+    static Frame$(id, a, k) {
+        this.e[id] = this.row = $(`<tr></tr>`);
+        this.cell = $('<td></td>');
+        this.row.append(this.cell);
+        $('table').append(this.row);
+    }
+    static Frame$configure(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+    }
+    static StringVar$set(id, [value], k) {
+        const parid = this.parfromstrid[id];
+        if (this.e[parid]) this.e[parid].text(value);
+    }
+    static IntVar$set(id, [value], k) {
+        const parid = this.parfromstrid[id];
+        if (this.e[parid]) this.e[parid].prop('checked', value);
+    }
+    static Label$(id, a, k, $a, $k) {
+        const $d = $k.entries.textvariable.rhs.$d;
+        const strid = this.dictget($d, 'id');
+        const value = this.dictget($d, 'v');
+        this.parfromstrid[strid] = id;
+        this.e[id] = $(`<div style="display: inline-block;">${value || '&nbsp;'}</div>`);
+        this.cell.append(this.e[id]);
+    }
+    static Label$configure(id, a, k) {
+        if (k.background) this.e[id].css('background', k.background);
+        if (k.fg) this.e[id].css('color', k.fg);
+    }
+    static Label$pack(id, a, k) {
+        this.e[id].css('visibility', 'visible');
+        this.setpadding(id, k);
+    }
+    static Label$pack_forget(id, a, k){
+        this.e[id].css('visibility', 'hidden');
+        //((this.e[id].children)[0]).style.visibility = "hidden";
+    }
+    static Toplevel$focus_force(id, a, k) {
+        let elt = id && this.e[id];
+        if (!elt) elt = this.e.find(elt => elt && elt.is('input'));
+        if (elt) elt.select();
+    }
+    static Toplevel$wm_overrideredirect(id, a, k) {
+        $('.titlebar').hide();
+    }
+}
+
+var $builtinmodule = function (name) {
+
+    const mod = {};
+
+    mod.__name__ = new Sk.builtin.str("psg");
+
+    mod.thunk = new Sk.builtin.func(function (name, id, $args, $kwargs) {
+
+        const debug = true;
+
+        Sk.builtin.pyCheckArgsLen('thunk', arguments.length, 0, Infinity);
+        name = Sk.ffi.remapToJs(name);
+        if (debug && ['xButton', 'Checkbutton', 'xEntry', 'xIntVar', 'xLabel', 'xStringVar'].some(item => name.startsWith(item))) {
+            console.warn(name, id, '[', $args, ']');
+            console.warn(`\t`, $kwargs);
+        }
+
+        id = Sk.ffi.remapToJs(id);
+        const args = Sk.ffi.remapToJs($args);
+        const kwargs = Sk.ffi.remapToJs($kwargs);
+        const method = tk[name];
+
+        if (debug && name !== 'Toplevel$mainloop') {
+            if ($('pre.modules').length === 0) $('<pre class="modules"></pre>').appendTo('body');
+            $('pre.modules')
+            .append(`${id} ${name} [${args.join(', ')}] ${JSON.stringify(kwargs)}\n`.replace(/</g, '&lt;'))
+            .scrollTop(10000)
+            ;
+            //console.warn(name, id, args, kwargs);
+        }
+
+        if (method) {
+            return Sk.ffi.remapToPy(method.call(tk, id, args, kwargs, $args, $kwargs));
+        }
+    });
+
+    return mod;
+};
+
+---tkinter.py
+import sys
+sys.platform = 'webbrowser'
+from psg import *
+
+id = 1000
+
+FLAT = 'flat'
+GROOVE = 'groove'
+SINGLE = 'single'
+MULTIPLE = 'multiple'
+BROWSE = 'browse'
+EXTENDED = 'extended'
+NONE = 'none'
+N = 'n'
+S = 's'
+W = 'w'
+E = 'e'
+NW = 'nw'
+NE = 'ne'
+SW = 'sw'
+SE = 'se'
+CENTER = 'center'
+LEFT = 'left'
+RIGHT = 'right'
+TOP = 'top'
+END = 'end'
+
+id = 1000
+
+def genid():
+    global id
+    id += 1
+    return id
+        
+
+class filedialog():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Filedialog$', self.id, args, kwargs)
+    pass
+    
+class ttk():
+    class Style():
+        def theme_names(self, *args, **kwargs):
+            return ["aqua", "step", "clam", "alt", "default", "classic"]
+        def theme_use(self, *args, **kwargs):
+            if (len(args) == 0):
+                thunk('S$current', self, args, kwargs)
+            else:
+                thunk('S$setTheme', self, args, kwargs)
+        def configure(self, *args, **kwargs):
+            pass
+        def map(self, *args, **kwargs):
+            pass
+    class Frame():
+        def __init__(self, *args, **kwargs):
+            self.id = genid()
+            thunk('ttk.Frame$', self.id, args, kwargs)
+        pass
+    
+class Frame():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Frame$', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Frame$pack', self.id, args, kwargs)
+        pass
+    def configure(self, *args, **kwargs):
+        thunk('Frame$configure', self.id, args, kwargs)
+        pass
+
+class Tk():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Tk$', self.id, args, kwargs)
+    def eval(self, *args, **kwargs):
+        thunk('Tk$eval', self.id, args, kwargs)
+        return '8.6.9'
+    def attributes(self, *args, **kwargs):
+        thunk('Tk$attributes', self.id, args, kwargs)
+        pass
+    def withdraw(self, *args, **kwargs):
+        thunk('Tk$withdraw', self.id, args, kwargs)
+        pass
+    def wm_overrideredirect(self, *args, **kwargs):
+        thunk('Tk$wm_overrideredirect', self.id, args, kwargs)
+        pass
+
+def Tcl():
+    return Tk()
+
+class Toplevel(Tk):
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Toplevel$', self.id, args, kwargs)
+    def bind(self, *args, **kwargs):
+        thunk('Toplevel$bind', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Toplevel$configure', self.id, args, kwargs)
+    def resizable(self, *args, **kwargs):
+        thunk('Toplevel$resizable', self.id, args, kwargs)
+    def title(self, *args, **kwargs):
+        thunk('Toplevel$title', self.id, args, kwargs)
+    def winfo_screenwidth(self, *args, **kwargs):
+        thunk('Toplevel$winfo_screenwidth', self.id, args, kwargs)
+        return 500
+    def winfo_screenheight(self, *args, **kwargs):
+        thunk('Toplevel$winfo_screenheight', self.id, args, kwargs)
+        return 500
+    def update_idletasks(self, *args, **kwargs):
+        thunk('Toplevel$update_idletasks', self.id, args, kwargs)
+    def winfo_width(self, *args, **kwargs):
+        thunk('Toplevel$winfo_width', self.id, args, kwargs)
+        return 500
+    def winfo_height(self, *args, **kwargs):
+        thunk('Toplevel$winfo_height', self.id, args, kwargs)
+        return 500
+    def geometry(self, *args, **kwargs):
+        thunk('Toplevel$geometry', self.id, args, kwargs)
+    def protocol(self, *args, **kwargs):
+        thunk('Toplevel$protocol', self.id, args, kwargs)
+    def mainloop(self, *args, **kwargs):
+        thunk('Toplevel$mainloop', self.id, args, kwargs)
+    def focus_force(self, *args, **kwargs):
+        thunk('Toplevel$focus_force', self.id, args, kwargs)
+    def wm_overrideredirect(self, *args, **kwargs):
+        thunk('Toplevel$wm_overrideredirect', self.id, args, kwargs)
+    def quit(self, *args, **kwargs):
+        thunk('Toplevel$quit', self.id, args, kwargs)
+
+class TkVar():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+    def trace(self, *args, **kwargs):
+        thunk(self.__class__.__name__ + '$trace', self.id, args, kwargs)
+    def set(self, value):
+        self.v = value
+        thunk(self.__class__.__name__ + '$set', self.id, [value], {})
+    def get(self):
+        # print(self.__class__.__name__ + '$get', self.v)
+        return self.v
+    def __str__(self):
+        thunk(self.__class__.__name__ + '$__str__', self.id, [self.v], {})
+        return self.v
+
+class StringVar(TkVar):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.v = ''
+        thunk(self.__class__.__name__ + '$', self.id, args, kwargs)
+
+class IntVar(TkVar):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.v = 0
+        thunk(self.__class__.__name__ + '$', self.id, args, kwargs)
+
+class Label():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        #kwargs['textvariable'] = str(kwargs['textvariable'])
+        thunk('Label$', self.id, args, kwargs)
+    def winfo_reqwidth(self, *args, **kwargs):
+        thunk('Label$winfo_reqwidth', self.id, args, kwargs)
+        return 500
+    def configure(self, *args, **kwargs):
+        thunk('Label$configure', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Label$pack', self.id, args, kwargs)
+    def pack_forget(self, *args, **kwargs):
+        thunk('Label$pack_forget', self.id, args, kwargs)
+
+class Scrollbar():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Scrollbar$', self.id, args, kwargs)
+    def set(self, *args, **kwargs):
+        thunk('Scrollbar$set', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Scrollbar$pack', self.id, args, kwargs)
+class Entry():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Entry$', self.id, args, kwargs)
+    def bind(self, *args, **kwargs):
+        thunk('Entry$bind', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Entry$configure', self.id, args, kwargs)
+    def config(self, *args, **kwargs):
+        thunk('Entry$config', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Entry$pack', self.id, args, kwargs)
+    def focus_set(self, *args, **kwargs):
+        thunk('Entry$focus_set', self.id, args, kwargs)
+    def pack_forget(self, *args, **kwargs):
+        thunk('Entry$pack_forget', self.id, args, kwargs)
+
+class Button():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Button$', self.id, args, kwargs)
+    def config(self, *args, **kwargs):
+        thunk('Button$config', self.id, args, kwargs)
+    def winfo_reqwidth(self, *args, **kwargs):
+        thunk('Button$winfo_reqwidth', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Button$pack', self.id, args, kwargs)
+    def bind(self, *args, **kwargs):
+        thunk('Button$bind', self.id, args, kwargs)
+    def focus_set(self, *args, **kwargs):
+        thunk('Button$focus_set', self.id, args, kwargs)
+
+class Checkbutton():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Checkbutton$', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Checkbutton$configure', self.id, args, kwargs)
+    def config(self, *args, **kwargs):
+        thunk('Checkbutton$config', self.id, args, kwargs)
+    def winfo_reqwidth(self, *args, **kwargs):
+        thunk('Checkbutton$winfo_reqwidth', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Checkbutton$pack', self.id, args, kwargs)
+
+class Radiobutton():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Radiobutton$', self.id, args, kwargs)
+    def config(self, *args, **kwargs):
+        thunk('Radiobutton$config', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Radiobutton$configure', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Radiobutton$pack', self.id, args, kwargs)
+        
+class Listbox():
+    def __init__(self, *args, **kwargs):
+        self.id = genid();
+        self.yview = ''
+        self.Values
+        thunk('Listbox$', self.id, args, kwargs);
+    def config(self, *args, **kwargs):
+        thunk('Listbox$config', self.id, args, kwargs)
+    def insert(self, *args, **kwargs):
+        thunk('Listbox$insert', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Listbox$configure', self.id, args, kwargs)
+    def bind(self, *args, **kwargs):
+        thunk('Listbox$bind', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Listbox$pack', self.id, args, kwargs)
+
+class Combobox():
+    def __init__(self, *args, **kwargs):
+        self.id = genid()
+        thunk('Combo$', self.id, args, kwargs)
+    def config(self, *args, **kwargs):
+        thunk('Combo$config', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+        thunk('Combo$configure', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+        thunk('Combo$pack', self.id, args, kwargs)
+
+class PhotoImage():
+    pass
+
+---warnings.py
+globals()['UserWarning'] = None
+def simplefilter(*args, **kwargs):
+    pass
+
+---typing.py
+List = Any = Union = Tuple = Dict = SupportsAbs = Optional = None
+
+---inspect.py
+
+class A():
+    f_locals = 42
+    f_globals = 42
+class Frame():
+    f_back = A()
+
+def stack():
+    return [
+        [
+            Frame(),
+            Frame(),
+            Frame(),
+        ],
+        [
+            Frame(),
+            Frame(),
+            Frame(),
+        ],
+        [
+            Frame(),
+            Frame(),
+            Frame(),
+        ],
+    ]
+    return [
+            Frame(),
+            Frame(),
+            Frame(),
+    ]
+
+def currentframe():
+    return [
+        [
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+        ],
+        [
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+        ],
+        [
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+            {'function': 'fxx', 'f_back': {'f_locals': []}},
+        ],
+    ]
+
+---os.py
+environ = []
+
+---colorchooser.py
+class askcolor():
+    pass
+
+---functools.py
+def wraps():
+    pass
+
+---threading.py
+class Thread():
+    pass
+
+---calendar.py
+class datetime():
+    datetime = 0
+    timedelta = 0
+
+---queue.py
+import time
+
+class Queue():
+    def __init__(self):
+        self.q = []
+    def qsize(self, *args, **kwargs):
+        if len(self.q) == 0:
+            time.sleep(0.01)
+        return len(self.q)
+    def put(self, item):
+        self.q.append(item)
+    def get_nowait(self):
+        return self.q.pop()
+
+---main2.py
+frobs = {
+    'jorg': 'mons',
+    'foog': 'brag',
+}
+
+zrog = frobs['foog']
+frobs['foog'] = 'zing'
+print(zrog, frobs)
