@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PySimpleGUI App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--<link rel="icon" href="pasted_zD1X8B19FV.jpg">-->
+        <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACx0lEQVQ4EW2R3UvTYRiGPe7fKSij5WpmWWo6TcLoS5faUjfLTTGz74OMgj7VUSmKlJkUadPSOugDLDwoidqcaCu35TZTmdvvffdTr2jLRO09eeDmvi/e534SEla8QYdnom/AyQo5IRy1r9JWehKqb9pJKmxAU3AL89WefwHhzER8TUQ4tKih/n/6MsChi49JKq5HY7hD0tFGNIYGjHVPUWfshL6uQ3xJRHFtRDjWIr1nlkOst7vZUngL7bHG2A+0xXfZfKSepCP1lF3pQpnpQnFtQDg2MfslkVmXBvVXexzS+9FFte01put2tEYbOuM9dMZmthbb0BTbYlpL/xDCuQMxvA3h2o5wahHDWXFAg/0T7x1eRjxTpJQ1E5wOsdPcgc7URnLJPXSmZi4/eENoTI8ykoz4lkp4LBVlJI252VdxyN7aDvRV9xka9WG41IWuvAmduQmdqZU0azsL6ixiLJOIOwPxbSeh0V1IT8FSD8M/guv/NFp0pYc0axupllaSy1tItrYAKtJjiAGEOx3p3oPwHFgKL56i4HI36ZYOUk60k1r5gPTKhyyoIDxFSHcO0puNHN+L4jGsDpfeeElGVSfpVZ2kVT6KzXkVQt6Sv6F8FG8ewl3EwsIMyoQFdbopDhoc9U1knX5C5smn7Kp9yO7qbqyNr4kGLyHH84n4DqN8P0gkWMK84kQJ1DCnDKBOd8YBn8cCZ7Nrn6A/ZSfj3DOyato52faOsL8C6c9H8RmR3kLk5AlE8BQiUM68OoSYebS0SmXrAPqL3WTXPkN/xk7e+T6iYTciaEL4SpD+UqS/DDFpjk1lshQZvrYE+FPk/qvPyT3fT865XnIv9GCufwt41yj+ihhITh0n8qscGSgj8rNieXjxEhbbB3Iv9JNT94J9dX0xE9Hh9XLCEocEzESDNf8PL0JefPTS8c61yjQnexHK21X6b8yNLxENffyeAAAAAElFTkSuQmCC" />
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Helvetica;
+                font-size: 10pt;
+            }
+            body {
+                margin: 0;
+                padding: 1;
+            }
+            .splash {
+                text-align: center;
+            }
+            #psglogo {
+                width: 375px;
+                height: 160px;
+            }
+            .titlebar {
+                border: thin solid black;
+                background: white;
+                padding: 4px;
+            }
+            .titlebar img {
+                margin-bottom: -2px;
+            }
+            table {
+                margin: 5px;
+            }
+            input[type="checkbox"] {
+                vertical-align: middle;
+                margin-bottom: 4px;
+            }
+            pre.modules {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 200px;
+                overflow: auto;
+                overflow-x: hidden;
+                border: thin solid gray;
+                font-family: monospace;
+                color: white;
+                font-size: xx-small;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="splash">
+            <img id="psglogo" src="https://raw.githubusercontent.com/PySimpleGUI/PySimpleGUI/master/images/for_readme/Logo%20with%20text%20for%20GitHub%20Top.png" />
+            <p>loading...</p>
+            <!--<img height="50" src="https://upload.wikimedia.org/wikipedia/commons/2/28/InternetSlowdown_Day.gif" />-->
+        </div>
+        <script>//
+            const names = [
+                // '//web.timkay.com/PySimpleGUI.py',
+                // '//web.timkay.com/PySimpleGUI.js',
+                'PySimpleGUI.py',
+                //'//web.timkay.com/PySimpleGUI.min.js',
+                // 'tkinter',
+                // 'psg.js',
+                'main.py',
+                'bundle.txt'
+                ];
+            const get = url => fetch(url).then(response => response.text())
+            const promises = names.map(name => get(name.match(/\./)? name: `${name}.txt`));
+        </script>
+        <script defer src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+        <!--<script src="//code.jquery.com/ui/1.12.0/jquery-ui.min.js" defer></script>-->
+        <script defer src="//web.timkay.com/skulpt.min.js"></script>
+        <script defer src="//web.timkay.com/skulpt-stdlib.js"></script>
+        <!--<script defer src="//anvil.works/runtime-new/runtime/js/lib/skulpt.min.js?sha=ae3903f896befda8409456c8ea982b08259ae2a0bcb176b3ab356e8c0e9100f2"></script>-->
+        <!--<script defer src="//anvil.works/runtime-new/runtime/js/lib/skulpt-stdlib.js?sha=da5d201ba47e07e99c7c91233811ee74bc4d01e4b9ff3efb45d59090a42bf956"></script>-->
+        <script>
+            window.onload = () => {
+                // console.clear();
+                Sk.builtins.UserWarning = Sk.builtin.id;
+                const Skread = Sk.read
+                Sk.configure({
+                    __future__: Sk.python3,
+                    // https://github.com/skulpt/skulpt/issues/894#issuecomment-497658219
+                    killableWhile: true,
+                    killableFor: true,
+                    output: s => console.log(s),
+                    read: fn => {
+                        $('.splash p').text(`initializing...`);
+                        // console.log(fn);
+                        return Skread(fn);
+                    },
+                });
+                const empty = ('pickle traceback difflib scrolledtext'
+                                + ' json site shutil font'
+                                + ' base64 hashlib glob urllib/error configparser');
+                empty.split(' ').forEach(name => {
+                    Sk.builtinFiles.files[`src/builtin/${name}.py`] = '';
+                    Sk.builtinFiles.files[`src/lib/${name}.py`] = '';
+                });
+                const add = (name, code) => {
+                    if (!name.match(/\./)) name += '.py';
+                    name = name.replace(/^.*\//, '').replace(/\.min/, '');
+                    Sk.builtinFiles.files[`src/builtin/${name}`] = code;
+                    Sk.builtinFiles.files[`src/lib/${name}`] = code;
+                };
+                Promise.allSettled(promises)
+                .then((responses) => {
+                    responses.forEach((response, i) => {
+                        if (names[i] === 'bundle.txt') {
+                            response.value.split(/^---/gm).forEach(file => {
+                                const [_, name, code] = file.match(/(.*?)\n([\s\S]*)$/);
+                                if (name) add(name, code);
+                            });
+                        } else {
+                            add(names[i].replace(/\.gz$/, ''), response.value || '');
+                        }
+                    });
+                    // $('.splash').hide();
+                    const now = Date.now();
+                    Sk.misceval.asyncToPromise(() => {
+                        $('.splash p').text('starting...');
+                        return Sk.importMain('main', false, true);
+                        return Sk.importMainWithBody('main', false, Sk.builtinFiles.files[`src/builtin/main.py`], true);
+                        return Sk.importMainWithBody('main2', true, Sk.builtinFiles.files[`src/builtin/main2.py`], true);
+                    })
+                    .then(() => console.log(`main.py completed successfully in ${(Date.now() - now) / 1000} sec`))
+                    .catch(err => {
+                        console.log(`${err.traceback[0].filename.replace(/^.*\//, '')}: ${err}`);
+                        err.traceback.forEach(({lineno, colno, filename}) => console.log(`\tcalled by ${filename.replace(/^.*\//, '')} ${lineno}/${colno}`));
+                    });
+                });
+            };
+        </script>
+        <script src="weedit.js" async></script>
+        <script src="weconsole.js" async></script>
+        <!--<script type="module" src="index.js"></script>-->
+    </body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
