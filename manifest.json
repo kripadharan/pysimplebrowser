@@ -1,0 +1,15 @@
+{
+    "name": "PSG Web-App",
+    "short_name": "PSG Web",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fcc",
+    "description": "PSG Web Version",
+    "icons": [
+        {
+            "src": "https://raw.githubusercontent.com/PySimpleGUI/PySimpleGUI/master/images/for_readme/Logo%20with%20text%20for%20GitHub%20Top.png",
+            "sizes": "375x160",
+            "type": "image/png"
+        }
+    ]
+}
