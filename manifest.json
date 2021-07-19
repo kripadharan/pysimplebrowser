@@ -1,7 +1,7 @@
 {
     "name": "PSG Web-App",
     "short_name": "PSG Web",
-    "start_url": ".",
+    "start_url": "psg.kripadharan.com",
     "display": "standalone",
     "background_color": "#fcc",
     "description": "PSG Web Version",
