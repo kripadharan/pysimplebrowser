@@ -8,7 +8,7 @@
     "description": "PSG Web Version",
     "icons": [
         {
-            "src": "https://www.timkay.com/timkay.png",
+            "src": "https://raw.githubusercontent.com/PySimpleGUI/PySimpleGUI/master/images/for_readme/Logo%20with%20text%20for%20GitHub%20Top.png",
             "sizes": "160x160",
             "type": "image/png"
         }
