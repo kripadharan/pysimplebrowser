@@ -299,7 +299,12 @@ var $builtinmodule = function (name) {
         }
     });
     
-    
+    mod.ex = new Sk.builtin.func(function (name) {
+        const method = pwaFeats[name];
+        if (method) {
+            return Sk.ffi.remapToPy($call(method));
+        }
+    });
 
     return mod;
 };
@@ -309,11 +314,7 @@ import sys
 sys.platform = 'webbrowser'
 from psg import *
 def selOpenFile():
-    #args = []
-    #kwargs = {}
     ex('File$selOpen')
-    #method = Sk.ffi.remapToPy($call(File$selOpen))
-    #return method()
 
 ---tkinter.py
 import sys
