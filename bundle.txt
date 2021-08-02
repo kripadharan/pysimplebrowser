@@ -294,7 +294,7 @@ var $builtinmodule = function (name) {
 
 
 
---pwafeatures.py
+---pwafeatures.py
 import sys
 sys.platform = 'webbrowser'
 class File():
