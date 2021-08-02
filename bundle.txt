@@ -303,7 +303,7 @@ class pwaFeats {
     }
 }
 
----pwafeatures.py
+---pwafeats.py
 import sys
 sys.platform = 'webbrowser'
 def selOpenFile(self, *args, **kwargs):
