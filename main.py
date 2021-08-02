@@ -10,7 +10,8 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Text("Enter custom tip amount:", key='prompt', visible=False)],
             [sg.Input(default_text='18', key='IN2', visible=False)],
             [sg.Button('Calculate', key='Calc')],
-            [sg.Text(size=(40, 1), key='OUTPUT')]]
+            [sg.Text(size=(40, 1), key='OUTPUT')],
+            [sg.Button('Choose File', key = 'CFILE')]]
 
 window = sg.Window('Hello world', layout)
 
@@ -45,6 +46,7 @@ while True:
                 tip = int(values["IN2"])
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
-
+    if(event == 'CFILE'):
+        selOpenFile()
 
 window.close()
