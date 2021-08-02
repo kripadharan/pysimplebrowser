@@ -253,6 +253,16 @@ class tk  {
     }
 }
 
+class pwaFeats {
+    let fileHandle;
+    async function File$selOpen() {
+        [fileHandle] = await window.showOpenFilePicker();
+        const file = await fileHandle.getFile();
+        const contents = await file.text();
+        textArea.value = contents;
+    }
+}
+
 var $builtinmodule = function (name) {
 
     const mod = {};
@@ -298,17 +308,6 @@ var $builtinmodule = function (name) {
 
     return mod;
 };
-
----pwafeatures.js
-class pwaFeats {
-    let fileHandle;
-    async function File$selOpen() {
-        [fileHandle] = await window.showOpenFilePicker();
-        const file = await fileHandle.getFile();
-        const contents = await file.text();
-        textArea.value = contents;
-    }
-}
 
 ---pwafeats.py
 import sys
