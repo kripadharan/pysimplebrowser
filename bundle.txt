@@ -255,12 +255,12 @@ class tk  {
 
 class pwaFeats {
     let fileHandle;
-    var File$selOpen = async function() {
-        [fileHandle] = await window.showOpenFilePicker();
-        const file = await fileHandle.getFile();
-        const contents = await file.text();
-        textArea.value = contents;
-    }
+    var File$selOpen = async () => {
+	  [fileHandle] = await window.showOpenFilePicker();
+	  const file = await fileHandle.getFile();
+	  const contents = await file.text();
+	  textArea.value = contents;
+	};
 }
 
 var $builtinmodule = function (name) {
