@@ -309,7 +309,7 @@ sys.platform = 'webbrowser'
 from psg import *
 def selOpenFile():
     args = []
-    kwargs = []
+    kwargs = {}
     thunk('File$selOpen', args, kwargs)
     #method = Sk.ffi.remapToPy(File$selOpen)
     #return method()
