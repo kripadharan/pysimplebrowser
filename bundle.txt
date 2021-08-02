@@ -307,8 +307,10 @@ class pwaFeats {
 import sys
 sys.platform = 'webbrowser'
 from psg import *
-def selOpenFile(*args, **kwargs):
-    thunk('File$selOpen', args = [], kwargs = [])
+def selOpenFile():
+    args = []
+    kwargs = []
+    thunk('File$selOpen', args, kwargs)
     #method = Sk.ffi.remapToPy(File$selOpen)
     #return method()
 
