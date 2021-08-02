@@ -47,6 +47,6 @@ while True:
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
     if(event == 'CFILE'):
-        selOpenFile()
+        File.selOpenFile()
 
 window.close()
