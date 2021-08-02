@@ -288,6 +288,13 @@ var $builtinmodule = function (name) {
             return Sk.ffi.remapToPy(method.call(tk, id, args, kwargs, $args, $kwargs));
         }
     });
+    
+    mod.ex = new Sk.builtin.func(function(name)) {
+        const method = pwaFeats[name];
+        if(method){
+            return Sk.ffi.remapToPy(method.call());
+        }
+    }
 
     return mod;
 };
@@ -308,10 +315,10 @@ import sys
 sys.platform = 'webbrowser'
 from psg import *
 def selOpenFile():
-    args = []
-    kwargs = {}
-    thunk('File$selOpen', args, kwargs)
-    #method = Sk.ffi.remapToPy(File$selOpen)
+    #args = []
+    #kwargs = {}
+    ex('File$selOpen')
+    #method = Sk.ffi.remapToPy($call(File$selOpen))
     #return method()
 
 ---tkinter.py
