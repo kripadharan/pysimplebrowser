@@ -299,7 +299,7 @@ class pwaFeats {
         const file = await fileHandle.getFile();
         const contents = await file.text();
         textArea.value = contents;
-    }
+    };
 }
 
 --pwafeatures.py
