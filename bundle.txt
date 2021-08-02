@@ -295,11 +295,11 @@ var $builtinmodule = function (name) {
 --pwafeatures.js
 class pwaFeats {
     var File$selOpen = async function(){
-        fileHandle = await window.showOpenFilePicker();
+        var fileHandle = await window.showOpenFilePicker();
         const file = await fileHandle.getFile();
         const contents = await file.text();
         textArea.value = contents;
-    };
+    }
 }
 
 --pwafeatures.py
