@@ -294,7 +294,7 @@ var $builtinmodule = function (name) {
 
 --pwafeatures.js
 class pwaFeats {
-    static async function File$selOpen(){
+    async function File$selOpen(){
         fileHandle = await window.showOpenFilePicker();
         const file = await fileHandle.getFile();
         const contents = await file.text();
