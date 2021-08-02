@@ -11,7 +11,8 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Input(default_text='18', key='IN2', visible=False)],
             [sg.Button('Calculate', key='Calc')],
             [sg.Text(size=(40, 1), key='OUTPUT')],
-            [sg.Button('Choose File', key = 'CFILE')]]
+            [sg.Button('Choose File', key = 'CFILE')],
+            [sg.Button('Close File', key = 'Close')]]
 
 window = sg.Window('Hello world', layout)
 
