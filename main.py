@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 import random
-from pwafeatures import *
+from pwafeats import *
 
 #sg.theme(random.choice(list(sg.LOOK_AND_FEEL_TABLE)))
 
