@@ -302,8 +302,8 @@ class File():
         thunk('File$selOpen')
 
 ---tkinter.py
-import sys
-sys.platform = 'webbrowser'
+#import sys
+#sys.platform = 'webbrowser'
 from psg import *
 
 id = 1000
