@@ -306,6 +306,7 @@ class pwaFeats {
 ---pwafeats.py
 import sys
 sys.platform = 'webbrowser'
+from psg import *
 def selOpenFile(*args, **kwargs):
     thunk('File$selOpen')
 
