@@ -292,6 +292,25 @@ var $builtinmodule = function (name) {
     return mod;
 };
 
+--pwafeatures.js
+class pwaFeats {
+    static File$selOpen{
+        fileHandle = await window.showOpenFilePicker();
+        const file = await fileHandle.getFile();
+        const contents = await file.text();
+        textArea.value = contents;
+    }
+}
+
+--pwafeatures.py
+import sys
+sys.platform = 'webbrowser'
+class File {
+    def selOpenFile(self, *args, **kwargs){
+        thunk('File$selOpen')
+    }
+}
+
 ---tkinter.py
 import sys
 sys.platform = 'webbrowser'
