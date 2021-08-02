@@ -306,7 +306,7 @@ class pwaFeats {
 ---pwafeats.py
 import sys
 sys.platform = 'webbrowser'
-def selOpenFile(self, *args, **kwargs):
+def selOpenFile(*args, **kwargs):
     thunk('File$selOpen')
 
 ---tkinter.py
