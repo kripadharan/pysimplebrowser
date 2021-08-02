@@ -254,7 +254,7 @@ class tk  {
 }
 
 class pwaFeats {
-    let fileHandle;
+    var fileHandle;
     async function File$selOpen() {
         [fileHandle] = await window.showOpenFilePicker();
         const file = await fileHandle.getFile();
@@ -299,9 +299,9 @@ var $builtinmodule = function (name) {
         }
     });
     
-    mod.ex = new Sk.builtin.func(function(name) {
+    mod.ex = new Sk.builtin.func(function (name) {
         const method = pwaFeats[name];
-        if(method){
+        if (method) {
             return Sk.ffi.remapToPy(method.call(pwaFeats));
         }
     });
