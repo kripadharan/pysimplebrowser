@@ -13,7 +13,7 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Button('Calculate', key='Calc')],
             [sg.Text(size=(40, 1), key='OUTPUT')],
             [sg.Button('Choose File', key = 'CFILE')],
-            [sg.Button('Close File', key = 'Close')]]
+            [sg.Text(key = 'Contents')]]
 
 window = sg.Window('Hello world', layout)
 
@@ -49,6 +49,7 @@ while True:
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
     if(event == 'CFILE'):
-        selOpenFile()
+        contents = selOpenFile()
+        window['Contents'].update(contents)
 
 window.close()
