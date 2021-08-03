@@ -317,7 +317,7 @@ import sys
 sys.platform = 'webbrowser'
 from psg import *
 def selOpenFile():
-    ex('File$selOpen')
+    return ex('File$selOpen')
 
 ---tkinter.py
 import sys
