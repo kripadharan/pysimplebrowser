@@ -50,6 +50,6 @@ while True:
             window['OUTPUT'].update(msg)
     if(event == 'CFILE'):
         contents = selOpenFile()
-        window['Contents'].update(contents)
+        window['Contents'].update('hello')
 
 window.close()
