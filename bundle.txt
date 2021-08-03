@@ -260,7 +260,8 @@ class pwaFeats {
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
 		alert(contents);
-		return contents;
+		//return contents;
+		return "hello";
 	};
 }
 
