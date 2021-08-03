@@ -259,7 +259,8 @@ class pwaFeats {
 		const fileHandle = await window.showOpenFilePicker();
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
-		return contents
+		alert(contents);
+		return contents;
 	};
 }
 
