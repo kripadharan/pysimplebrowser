@@ -301,12 +301,12 @@ var $builtinmodule = function (name) {
         }
     });
     
-    mod.ex = new Sk.builtin.func(async function (name) {
+    mod.ex = new Sk.builtin.func(function (name) {
     	name = Sk.ffi.remapToJs(name);
         const method = pwaFeats[name];
 	console.log(method);
         if (method) {
-            return await Sk.ffi.remapToPy(method.call(pwaFeats));
+            return Sk.ffi.remapToPy(method.call(pwaFeats));
         }
     });
 
@@ -317,8 +317,8 @@ var $builtinmodule = function (name) {
 import sys
 sys.platform = 'webbrowser'
 from psg import *
-async def selOpenFile():
-    return await ex('File$selOpen')
+def selOpenFile():
+    return ex('File$selOpen')
 
 ---tkinter.py
 import sys
