@@ -321,8 +321,8 @@ var $builtinmodule = function (name) {
 import sys
 sys.platform = 'webbrowser'
 from psg import *
-def selOpenFile():
-    contents = ex('File$selOpen')
+async def selOpenFile():
+    contents = await (ex('File$selOpen'))
     return contents
 
 ---tkinter.py
