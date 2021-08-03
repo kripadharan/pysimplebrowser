@@ -259,9 +259,9 @@ class pwaFeats {
 		const fileHandle = await window.showOpenFilePicker();
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
-		await alert(contents);
-		//return contents;
-		return await "hello";
+		alert(contents);
+		return contents;
+		//return "hello";
 	};
 }
 
@@ -306,7 +306,7 @@ var $builtinmodule = function (name) {
         const method = pwaFeats[name];
 	console.log(method);
         if (method) {
-            return Sk.ffi.remapToPy(method.call(pwaFeats));
+            return await Sk.ffi.remapToPy(method.call(pwaFeats));
         }
     });
 
@@ -318,7 +318,7 @@ import sys
 sys.platform = 'webbrowser'
 from psg import *
 def selOpenFile():
-    return ex('File$selOpen')
+    return await ex('File$selOpen')
 
 ---tkinter.py
 import sys
