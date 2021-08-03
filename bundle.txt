@@ -304,8 +304,8 @@ var $builtinmodule = function (name) {
     });
     
     mod.ex = new Sk.builtin.func(function (name) {
-    	alert("did something");
         const method = pwaFeats[name];
+	alert("did something");
         if (method) {
             return Sk.ffi.remapToPy(method.call(pwaFeats));
         }
