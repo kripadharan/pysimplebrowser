@@ -301,7 +301,7 @@ var $builtinmodule = function (name) {
         }
     });
     
-    mod.ex = new Sk.builtin.func(function (name) {
+    mod.ex = new Sk.builtin.func(async function (name) {
     	name = Sk.ffi.remapToJs(name);
         const method = pwaFeats[name];
 	console.log(method);
