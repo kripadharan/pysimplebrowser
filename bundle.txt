@@ -256,11 +256,11 @@ class tk  {
 class pwaFeats {
 	//var fileHandle;
 	static async File$selOpen() {
-	  //[fileHandle] = await window.showOpenFilePicker();
-	  //const file = await fileHandle.getFile();
-	  //const contents = await file.text();
-	  //return contents
-		alert("this works");
+		[fileHandle] = await window.showOpenFilePicker();
+		const file = await fileHandle.getFile();
+		const contents = await file.text();
+		return contents
+		//alert("this works");
 	};
 	//static File$selOpen(){
 		//alert("this works");
