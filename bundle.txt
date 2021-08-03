@@ -260,7 +260,7 @@ class pwaFeats {
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
 		alert(contents);
-		await return contents;
+		return contents;
 		//return "hello";
 	};
 }
@@ -317,8 +317,9 @@ var $builtinmodule = function (name) {
 import sys
 sys.platform = 'webbrowser'
 from psg import *
-def selOpenFile():
-    return ex('File$selOpen')
+async def selOpenFile():
+    contents = await ex('File$selOpen')
+    return contents
 
 ---tkinter.py
 import sys
