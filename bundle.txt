@@ -251,12 +251,9 @@ class tk  {
     static Toplevel$wm_overrideredirect(id, a, k) {
         $('.titlebar').hide();
     }
-    static File$selOpen(){
-	alert("this works");
-    }
 }
 
-//class pwaFeats {
+class pwaFeats {
 	//var fileHandle;
 	//var File$selOpen = async () => {
 	  //[fileHandle] = await window.showOpenFilePicker();
@@ -265,10 +262,10 @@ class tk  {
 	  //return contents
 		//alert("this works");
 	//};
-	//static File$selOpen(){
-		//alert("this works");
-	//}
-//}
+	static File$selOpen(){
+		alert("this works");
+	}
+}
 
 var $builtinmodule = function (name) {
 
@@ -307,10 +304,11 @@ var $builtinmodule = function (name) {
     });
     
     mod.ex = new Sk.builtin.func(function (name) {
-        const method = tk[name];
+    	name = Sk.ffi.remapToJs(name);
+        const method = pwaFeats[name];
 	console.log(method);
         if (method) {
-            return Sk.ffi.remapToPy(method.call(tk));
+            return Sk.ffi.remapToPy(method.call(pwaFeats));
         }
     });
 
