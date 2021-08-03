@@ -260,7 +260,11 @@ class pwaFeats {
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
 		alert(contents);
-		return contents;
+		var body = document.getElementsByTagName("body")[0];
+		var el = document.createElement("textarea");
+		el.innerHTML = contents;
+		body.appendChild(el);
+		//return contents;
 		//return "hello";
 	};
 }
