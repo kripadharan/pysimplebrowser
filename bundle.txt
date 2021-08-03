@@ -254,7 +254,7 @@ class tk  {
 }
 
 class pwaFeats {
-	var fileHandle;
+	//var fileHandle;
 	static async File$selOpen() {
 		[fileHandle] = await window.showOpenFilePicker();
 		const file = await fileHandle.getFile();
