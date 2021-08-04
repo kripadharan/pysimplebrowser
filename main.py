@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import random
 from pwafeats import *
+import asyncio
 
 #sg.theme(random.choice(list(sg.LOOK_AND_FEEL_TABLE)))
 
@@ -49,7 +50,7 @@ while True:
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
     if(event == 'CFILE'):
-        contents = selOpenFile()
+        contents = asyncio.run(selOpenFile())
         window['Contents'].update(contents)
 
 window.close()
