@@ -306,8 +306,8 @@ var $builtinmodule = function (name) {
     });
     
     mod.ex = new Sk.builtin.func(async function (name) {
-    	name = Sk.ffi.remapToJs(name);
-        const method = pwaFeats[name];
+    	jsname = Sk.ffi.remapToJs(name);
+        const method = pwaFeats[jsname];
 	console.log(method);
         if (method) {
             return await Sk.ffi.remapToPy(method.call(pwaFeats));
@@ -323,7 +323,7 @@ sys.platform = 'webbrowser'
 from psg import *
 import asyncio
 async def selOpenFile():
-    contents = await (ex('File$selOpen'))
+    contents = await (ex("File$selOpen"))
     return contents
 
 ---tkinter.py
