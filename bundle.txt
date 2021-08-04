@@ -321,6 +321,7 @@ var $builtinmodule = function (name) {
 import sys
 sys.platform = 'webbrowser'
 from psg import *
+import asyncio
 async def selOpenFile():
     contents = await (ex('File$selOpen'))
     return contents
