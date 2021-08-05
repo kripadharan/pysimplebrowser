@@ -48,9 +48,10 @@ while True:
                 tip = int(values["IN2"])
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
+    contents = "test"
     if(event == 'CFILE'):
         contents = selOpenFile()
-        print(contents)
-        window['Contents'].update(contents)
-
+        
+    print(contents)
+    window['Contents'].update(contents)
 window.close()
