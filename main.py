@@ -51,5 +51,5 @@ while True:
     if(event == 'CFILE'):
         contents = selOpenFile()   
         print(contents)
-    window['Contents'].update(contents)
+        window['Contents'].update(contents)
 window.close()
