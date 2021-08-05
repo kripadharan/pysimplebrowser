@@ -255,10 +255,10 @@ class tk  {
 
 class pwaFeats {
 	//var fileHandle;
-	static FileSelOpen() {
-		const fileHandle = window.showOpenFilePicker();
-		const file = (fileHandle[0]).getFile();
-		const contents = file.text();
+	static async FileSelOpen() {
+		const fileHandle = await window.showOpenFilePicker();
+		const file = await (fileHandle[0]).getFile();
+		const contents = await file.text();
 		alert(contents);
 		//var body = document.getElementsByTagName("body")[0];
 		//var el = document.createElement("textarea");
