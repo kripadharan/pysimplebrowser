@@ -16,7 +16,7 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Text(size=(40, 1), key = 'Contents')]]
 
 window = sg.Window('Hello world', layout)
-
+contents = "test"
 while True:
     event, values = window.read()
     if(event == sg.WIN_CLOSED):
@@ -48,10 +48,8 @@ while True:
                 tip = int(values["IN2"])
                 msg = f'{tip}% tip: {tip / 100 * amount}'
             window['OUTPUT'].update(msg)
-    contents = "test"
     if(event == 'CFILE'):
-        contents = selOpenFile()
-        
-    print(contents)
+        contents = selOpenFile()   
+        print(contents)
     window['Contents'].update(contents)
 window.close()
