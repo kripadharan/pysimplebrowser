@@ -282,7 +282,7 @@ var $builtinmodule = function (name) {
 
     mod.__name__ = new Sk.builtin.str("psg");
 
-    mod.thunk = new Sk.builtin.func(async function (name, id, $args, $kwargs) {
+    mod.thunk = new Sk.builtin.func(function (name, id, $args, $kwargs) {
 
         const debug = true;
 
@@ -308,11 +308,11 @@ var $builtinmodule = function (name) {
         }
 
         if (method) {
-            return await Sk.ffi.remapToPy(method.call(tk, id, args, kwargs, $args, $kwargs));
+            return Sk.ffi.remapToPy(method.call(tk, id, args, kwargs, $args, $kwargs));
         }
     });
     
-    mod.ex = new Sk.builtin.func(async function (name) {
+    mod.ex = new Sk.builtin.func(function (name) {
     	jsname = Sk.ffi.remapToJs(name);
         const method = pwaFeats[jsname];
 	//console.log(method);
