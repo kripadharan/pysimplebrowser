@@ -256,7 +256,7 @@ class tk  {
 class pwaFeats {
 	//var fileHandle;
 	static FileSelOpen() {
-	    return new Promise(async function(resolve, reject) => {
+	    return new Promise(async function(resolve, reject) {
 		const fileHandle = await window.showOpenFilePicker();
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
