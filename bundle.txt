@@ -256,6 +256,7 @@ class tk  {
 class pwaFeats {
 	//var fileHandle;
 	static async FileSelOpen() {
+	    return new Promise((resolve, reject) => {
 		const fileHandle = await window.showOpenFilePicker();
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
@@ -264,9 +265,15 @@ class pwaFeats {
 		//var el = document.createElement("textarea");
 		//el.innerHTML = contents;
 		//body.appendChild(el);
-		return contents;
+		if(contents != null){
+		    resolve(contents);
+		}
+		else{
+		    reject("Something went wrong");
+		}
 		//return "hello";
-	};
+	    });
+	}
 }
 
 var $builtinmodule = function (name) {
@@ -308,9 +315,18 @@ var $builtinmodule = function (name) {
     mod.ex = new Sk.builtin.func(async function (name) {
     	jsname = Sk.ffi.remapToJs(name);
         const method = pwaFeats[jsname];
-	console.log(method);
+	//console.log(method);
         if (method) {
-            return await Sk.ffi.remapToPy(method.call(pwaFeats));
+            //return await Sk.ffi.remapToPy(method.call(pwaFeats));
+	    var susp = new Sk.misceval.Suspension();
+	    susp.resume = function () {
+	        return Sk.ffi.remapToPy(susp.data['result'];
+	    }
+	    susp.data = {
+	        type: "Sk.promise",
+		promise: method.call(pwaFeats)
+	    };
+	    return susp;
         }
     });
 
