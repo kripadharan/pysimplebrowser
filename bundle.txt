@@ -320,7 +320,7 @@ var $builtinmodule = function (name) {
             //return await Sk.ffi.remapToPy(method.call(pwaFeats));
 	    var susp = new Sk.misceval.Suspension();
 	    susp.resume = function () {
-	        return Sk.ffi.remapToPy(susp.data['result'];
+	        return Sk.ffi.remapToPy(susp.data['result']);
 	    }
 	    susp.data = {
 	        type: "Sk.promise",
