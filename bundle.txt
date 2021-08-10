@@ -277,6 +277,7 @@ class pwaFeats {
 	static startVidFeed(){
 	    return new Promise(async function(resolve, reject) {
 	        var video = document.createElement('video');
+		video.id = "vid1";
 		video.setAttribute('playsinline', '');
 		video.setAttribute('autoplay', '');
 		video.setAttribute('muted', '');
@@ -302,7 +303,7 @@ class pwaFeats {
 	}
 	static endVidFeed(){
 	    return new Promise(async function(resolve, reject) {
-	    	vid = document.getElementsByTagName("video")[0];
+	    	vid = document.getElementById("vid1");
 		vid.remove();
 		console.log("ending video");
 		resolve(true);
