@@ -304,6 +304,7 @@ class pwaFeats {
 	    return new Promise(async function(resolve, reject) {
 	    	vid = document.getElementsByTagName("video")[0];
 		vid.remove();
+		console.log("ending video");
 		resolve(true);
 	    });
 	}
