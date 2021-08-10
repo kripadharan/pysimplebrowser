@@ -274,7 +274,7 @@ class pwaFeats {
 		//return "hello";
 	    });
 	}
-	static VidFeed(){
+	static startVidFeed(){
 	    return new Promise(async function(resolve, reject) {
 	        var video = document.createElement('video');
 		video.setAttribute('playsinline', '');
@@ -295,6 +295,8 @@ class pwaFeats {
 		navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
   		    video.srcObject = stream;
 		});
+		var body = document.getElementsByTagName("body")[0];
+		body.appendChild(video);
 		resolve(true);
 	    });
 	}
@@ -364,8 +366,8 @@ from psg import *
 def selOpenFile():
     contents = ex("FileSelOpen")
     return contents
-def videoFeed():
-    ex("VidFeed")
+def startVideoFeed():
+    ex("startVidFeed")
 
 ---tkinter.py
 import sys
