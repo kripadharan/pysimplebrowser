@@ -290,6 +290,8 @@ class pwaFeats {
   		    }
 		};
 		
+		console.log("video");
+		
 		navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
   		    video.srcObject = stream;
 		});
