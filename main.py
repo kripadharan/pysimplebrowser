@@ -13,11 +13,11 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Button('Calculate', key='Calc')],
             [sg.Text(size=(40, 1), key='OUTPUT')],
             [sg.Button('Choose File', key = 'CFILE')],
-            [sg.Text(size=(40, 1), key = 'Contents')]]
+            [sg.Text(size=(40, 1), key = 'Contents')],
+            [sg.Button('Start Video', key = 'VidStart']]
 
 window = sg.Window('Hello world', layout)
 contents = "test"
-videoFeed()
 while True:
     event, values = window.read()
     if(event == sg.WIN_CLOSED):
@@ -53,4 +53,6 @@ while True:
         contents = selOpenFile()   
         print(contents)
         window['Contents'].update(contents)
+    if(event == 'VidStart'):
+         vidId = startVideoFeed()
 window.close()
