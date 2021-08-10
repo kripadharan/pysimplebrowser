@@ -305,6 +305,10 @@ class pwaFeats {
 	    return new Promise(async function(resolve, reject) {
 	        console.log("ending video");
 	    	var vid = document.getElementById("vid1");
+		var stream = vid.srcObject;
+		stream.getTracks().forEach(function(track) {
+  		    track.stop();
+		});
 		vid.remove();
 		resolve(true);
 	    });
