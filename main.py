@@ -17,7 +17,7 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
 
 window = sg.Window('Hello world', layout)
 contents = "test"
-vidFeed()
+videoFeed()
 while True:
     event, values = window.read()
     if(event == sg.WIN_CLOSED):
