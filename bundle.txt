@@ -300,6 +300,13 @@ class pwaFeats {
 		resolve(true);
 	    });
 	}
+	static endVidFeed(){
+	    return new Promise(async function(resolve, reject) {
+	    	vid = document.getElementsByTagName("video")[0];
+		vid.remove();
+		resolve(true);
+	    });
+	}
 }
 
 var $builtinmodule = function (name) {
@@ -368,6 +375,8 @@ def selOpenFile():
     return contents
 def startVideoFeed():
     ex("startVidFeed")
+def endVideoFeed():
+    ex("endVidFeed")
 
 ---tkinter.py
 import sys
