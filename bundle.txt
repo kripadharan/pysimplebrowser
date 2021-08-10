@@ -304,7 +304,7 @@ class pwaFeats {
 	static endVidFeed(){
 	    return new Promise(async function(resolve, reject) {
 	        console.log("ending video");
-	    	vid = document.getElementById("vid1");
+	    	var vid = document.getElementById("vid1");
 		vid.remove();
 		resolve(true);
 	    });
