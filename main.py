@@ -14,7 +14,7 @@ layout = [ [sg.Text("Enter total amount in dollars:")],
             [sg.Text(size=(40, 1), key='OUTPUT')],
             [sg.Button('Choose File', key = 'CFILE')],
             [sg.Text(size=(40, 1), key = 'Contents')],
-            [sg.Button('Start Video', key = 'VidStart']]
+            [sg.Button('Start Video', key = 'VidStart')]]
 
 window = sg.Window('Hello world', layout)
 contents = "test"
