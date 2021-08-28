@@ -246,10 +246,9 @@ class tk  {
     static Image$(id, a, k, $a, $k) {
     	console.warn(id, k);
     }
-    static Image$configure(id, a, k){
+    static Image$width(id, a, k){
     }
-    static Image$pack(id, a, k){
-    	this.setpadding(id, k);
+    static Image$height(id, a, k){
     }
     static Toplevel$focus_force(id, a, k) {
         let elt = id && this.e[id];
@@ -672,10 +671,10 @@ class PhotoImage():
     def __init__(self, *args, **kwargs):
     	self.id = genid()
 	thunk('Image$', self.id, args, kwargs)
-    def configure(self, *args, **kwargs):
-    	thunk('Image$configure', self.id, args, kwargs)
-    def pack(self, *args, **kwargs):
-    	thunk('Image$pack', self.id, args, kwargs)
+    def width(self, *args, **kwargs):
+    	thunk('Image$width', self.id, args, kwargs)
+    def height(self, *args, **kwargs):
+    	thunk('Image$height', self.id, args, kwargs)
 	
 #class PhotoImage():
     #pass
