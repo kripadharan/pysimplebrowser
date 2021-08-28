@@ -4,16 +4,10 @@ from pwafeats import *
 
 #sg.theme(random.choice(list(sg.LOOK_AND_FEEL_TABLE)))
 
-layout = [ [sg.Text("Enter total amount in dollars:")],
-            [sg.Input(default_text='100', key='-INPUT-')],
-            [sg.Text("Select a tip percentage:")],
-            [sg.Radio('5%', 'RADIO1', enable_events=True, key = "R1"), sg.Radio('10%', 'RADIO1', enable_events=True, key = "R2"), sg.Radio('15%', 'RADIO1', enable_events=True, key = "R3"), sg.Radio('Custom', 'RADIO1', enable_events=True, key = "R4")],
-            [sg.Text("Enter custom tip amount:", key='prompt', visible=False)],
-            [sg.Input(default_text='18', key='IN2', visible=False)],
-            [sg.Button('Calculate', key='Calc')],
-            [sg.Text(size=(40, 1), key='OUTPUT')],
-            [sg.Button('Choose File', key = 'CFILE')],
+layout = [  [sg.Button('Choose Text File', key = 'CFILE')],
             [sg.Text(size=(40, 1), key = 'Contents')],
+            [sg.Button('Choose Image File', key = 'CFILE2')],
+            [sg.Image(size=(40, 1), key = 'Img')],
             [sg.Button('Start Video', key = 'VidStart'), sg.Button('End Video', key = 'VidEnd')]]
 
 window = sg.Window('Hello world', layout)
@@ -53,6 +47,9 @@ while True:
         contents = selOpenFile()   
         print(contents)
         window['Contents'].update(contents)
+    if(event == 'CFILE2'):
+        image = selOpenImgFile()
+        window['Img'].update(image)
     if(event == 'VidStart'):
          vidId = startVideoFeed()
     if(event == 'VidEnd'):
