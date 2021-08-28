@@ -243,6 +243,14 @@ class tk  {
         this.e[id].css('visibility', 'hidden');
         //((this.e[id].children)[0]).style.visibility = "hidden";
     }
+    static Image$(id, a, k, $a, $k) {
+    	console.warn(id, k);
+    }
+    static Image$configure(id, a, k){
+    }
+    static Image$pack(id, a, k){
+    	this.setpadding(id, k);
+    }
     static Toplevel$focus_force(id, a, k) {
         let elt = id && this.e[id];
         if (!elt) elt = this.e.find(elt => elt && elt.is('input'));
@@ -660,6 +668,15 @@ class Combobox():
     def pack(self, *args, **kwargs):
         thunk('Combo$pack', self.id, args, kwargs)
 
+class Image():
+    def __init__(self, *args, **kwargs):
+    	self.id = genid()
+	thunk('Image$', self.id, args, kwargs)
+    def configure(self, *args, **kwargs):
+    	thunk('Image$configure', self.id, args, kwargs)
+    def pack(self, *args, **kwargs):
+    	thunk('Image$pack', self.id, args, kwargs)
+	
 class PhotoImage():
     pass
 
