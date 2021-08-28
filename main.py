@@ -7,7 +7,7 @@ from pwafeats import *
 layout = [  [sg.Button('Choose Text File', key = 'CFILE')],
             [sg.Text(size=(40, 1), key = 'Contents')],
             [sg.Button('Choose Image File', key = 'CFILE2')],
-            [sg.Image(size=(40, 1), key = 'Img')],
+            [sg.Image(key = 'Img')],
             [sg.Button('Start Video', key = 'VidStart'), sg.Button('End Video', key = 'VidEnd')]]
 
 window = sg.Window('Hello world', layout)
