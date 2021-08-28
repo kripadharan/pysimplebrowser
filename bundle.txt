@@ -668,7 +668,7 @@ class Combobox():
     def pack(self, *args, **kwargs):
         thunk('Combo$pack', self.id, args, kwargs)
 
-class Image():
+class PhotoImage():
     def __init__(self, *args, **kwargs):
     	self.id = genid()
 	thunk('Image$', self.id, args, kwargs)
@@ -677,8 +677,8 @@ class Image():
     def pack(self, *args, **kwargs):
     	thunk('Image$pack', self.id, args, kwargs)
 	
-class PhotoImage():
-    pass
+#class PhotoImage():
+    #pass
 
 ---warnings.py
 globals()['UserWarning'] = None
