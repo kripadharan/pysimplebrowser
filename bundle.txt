@@ -257,7 +257,18 @@ class pwaFeats {
 	//var fileHandle;
 	static FileSelOpen() {
 	    return new Promise(async function(resolve, reject) {
-		const fileHandle = await window.showOpenFilePicker();
+	    	const options = {
+  				    types: [
+    				        {
+      					    description: 'Text Files',
+      					    accept: {
+        					'text/plain': ['.txt', '.text'],
+        					'text/html': ['.html', '.htm']
+      					    }
+    					}
+				    ]
+				};
+		const fileHandle = await window.showOpenFilePicker(options);
 		const file = await (fileHandle[0]).getFile();
 		const contents = await file.text();
 		//alert(contents);
